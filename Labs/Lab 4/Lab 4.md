@@ -2,29 +2,41 @@
 
 In this lab you'll learn how Azure Container Apps can be used to deploy microservices.
 
-### Exercise 1: Deploying the Reddog application to Azure Container Apps
+### Exercise 1: Deploy your code to Azure Container Apps
+
+In this exercise you'll deploy a simple microservice API to Azure Container Apps. 
  
-1. Perform the steps below to deploy the Reddog application and microservices into Azure Container Apps:
+1. Perform the steps in the following tutorial to deploy a microservice API to Azure Container Apps. 
 
-    https://github.com/Azure/reddog-containerapps#deployment
+    https://docs.microsoft.com/en-us/azure/container-apps/quickstart-code-to-cloud?tabs=bash%2Ccsharp&pivots=acr-remote
 
-    > Note: This deployment can take awhile to finish so please be patient and leave your console running until it completes.
+    > Note: SKIP the `Clean up resources` step at the end of the tutorial since you'll need the `album-api` container app in the next exercise.
 
-### Exercise 2: Exploring and Scaling Reddog Microservices
+1. Keep your terminal window open and continue to the next exercise.
 
-1. Run the following command to get the URL for the Reddog application:
+### Exercise 2: Communication between microservices in Azure Container Apps
+
+In this exercise you'll deploy a UI application that consumes the API container app created in the previous exercise. You'll understand how to locate the endpoint for the microsoft API and pass that to the application so that the two can communicate.
+
+1. Perform the steps from the following tutorial to learn how to communicate between microservices:
+
+    https://docs.microsoft.com/en-us/azure/container-apps/communicate-between-microservices?source=recommendations&tabs=bash&pivots=acr-remote
+
+    > Note: SKIP the `Clean up resources` step at the end of the tutorial since you'll need the `album-api` container app in the next exercise.
+
+1. Keep your terminal window open and continue to the next exercise.
+
+### Exercise 3: Using the Azure Portal to Scale a Microservice
+
+1. Open the Azure Portal and navigate to your `album-api` container app.
+
+1. Change the scale of the `album-api` container app to allow a minimum of 1 and a maximum of 5.
+
+1. Add an HTTP scale trigger to the `album-api` container app. Use a value of 50 for the `Concurrent requests`.
+
+1. Clean up the resources by running the following command. If you accidentally closed your terminal window and lost the environment variables defined in Exercise 1, you can replace `$RESOURCE_GROUP` with `album-containerapps`.
 
     ```bash
-    az deployment group show -n reddog -g $RG -o json --query properties.outputs.urls.value
+    az group delete --name $RESOURCE_GROUP
     ```
-
-1. View the Reddog URL in your browser to ensure the app is up and running. It may take a few moments for it to load the first time you visit the site.
-
-    > Note: If you have any issues, go to the Azure Portal, go locate the `reddog` resource group and select the `ui` container app. Go into revision management and ensure it was `provisioned` successfully. You can click on the revision name to view `System logs` if there was an issue with the deployment.
-
-1. Use the Azure CLI to perform the following tasks:
-    - Get the name of the Reddog environment.
-    - List all of the container apps in the environment.
-
-
 
