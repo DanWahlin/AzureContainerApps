@@ -1,6 +1,6 @@
-## Lab 5 - Microservices and Azure Container Apps
+## Lab 5 - Dapr and Microservices with Azure Container Apps
 
-In this lab you'll learn how Azure Container Apps can be used to deploy microservices.
+In this lab you'll learn how Dapr and microservices can be used with Azure Container Apps.
 
 ### Exercise 1: Deploying the Reddog application to Azure Container Apps
 

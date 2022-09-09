@@ -1,4 +1,4 @@
-## Lab 5 - Microservices and Azure Container Apps
+## Lab 4 - Microservices and Azure Container Apps
 
 In this lab you'll learn how Azure Container Apps can be used to deploy microservices.
 
