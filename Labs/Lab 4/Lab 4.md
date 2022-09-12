@@ -68,7 +68,7 @@ In this exercise you'll deploy a UI application that consumes the API container 
 
 1. Split the traffic 50/50 between the two revisions in the Azure Portal or by using the Azure CLI `az containerapp ingress traffic set` command.
 
-1. Visit the URL for the container app and refresh until you see the modification in the title.
+1. Visit the URL for the container app and refresh until you see the modified title.
 
 1. Clean up the resources by running the following command:
 
