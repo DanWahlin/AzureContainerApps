@@ -2,7 +2,7 @@
 
 In this lab you'll learn how Dapr and microservices can be used with Azure Container Apps.
 
-### Exercise 1: Deploying the Reddog application to Azure Container Apps
+### Pre-Exercise: Deploying the Reddog application to Azure Container Apps
 
 1. Clone the `Reddog` application source code to your machine:
 
@@ -42,7 +42,7 @@ In this lab you'll learn how Dapr and microservices can be used with Azure Conta
 
     > Note: This deployment can take awhile to finish so please be patient and leave your console running until it completes.
 
-### Exercise 2: Exploring and Reddog Microservices
+### Exercise 1: Exploring and Reddog Microservices
 
 1. Run the following command to get the URL for the Reddog application:
 
@@ -73,6 +73,14 @@ In this lab you'll learn how Dapr and microservices can be used with Azure Conta
     | Virtual Worker | None | Service to Service Invocation, Binding: Cron | N/A |
 
 1. Open the `reddog-code` folder (you cloned this in Exercise 1) in an editor.
+
+### Exercise 2: Deploy a Dapr Application and Component to Azure Container Apps using the Azure CLI
+
+1. Perform the steps at https://docs.microsoft.com/azure/container-apps/microservices-dapr to:
+    - Create a Container Apps environment for your container apps
+    - Create an Azure Blob Storage state store for the container app
+    - Deploy two apps that produce and consume messages and persist them in the state store
+    - Verify the interaction between the two microservices.
 
 
 
