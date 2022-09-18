@@ -48,9 +48,8 @@ In this lab you'll learn how Dapr and microservices can be used with Azure Conta
     az deployment group show -n reddog -g $RG -o json --query properties.outputs.urls.value
     ```
 
-    > These steps can be found at https://github.com/Azure/reddog-containerapps#deployment
-
-    > Note: This deployment can take awhile to finish so please be patient and leave your console running until it completes.
+    > Note: These steps can be found at https://github.com/Azure/reddog-containerapps#deployment    
+    This deployment can take awhile to finish so please be patient and leave your console running until it completes.
 
 ### Exercise 1: Exploring and Reddog Microservices
 
@@ -119,7 +118,7 @@ In this lab you'll learn how Dapr and microservices can be used with Azure Conta
     }
     ```
 
-    > Note: You can find the Dapr Component definition for the pub/sub service (Azure ServiceBus) at https://github.com/Azure/reddog-code/blob/master/manifests/corporate/components/reddog.pubsub.yaml.
+    > Note: You can find the Dapr Component definition for the pub/sub service (Azure ServiceBus) at https://github.com/Azure/reddog-code/blob/master/manifests/corporate/components/reddog.pubsub.yaml. It's important to note that Azure Container Apps currently uses a different format than the standard Dapr component spec.
 
 1. Open https://github.com/Azure/reddog-code/blob/master/RedDog.LoyaltyService/Controllers/LoyaltyController.cs#L44 and note that a `DaprClient` object is used to get a state entry (from Cosmos DB in this case).
 
