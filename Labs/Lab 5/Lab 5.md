@@ -137,9 +137,11 @@ In this lab you'll learn how Dapr and microservices can be used with Azure Conta
     await daprClient.InvokeBindingAsync<OrderSummary>(ReceiptBindingName, "create", orderSummary, metadata);
     ```
 
+    > Note: You can find the Dapr Component definition for the state store at https://github.com/Azure/reddog-code/blob/23586096d81077d1223b70d47e9a1cd395fab50c/manifests/branch/base/components/reddog.binding.receipt.yaml.
+
 1. Open https://github.com/Azure/reddog-code/blob/master/RedDog.VirtualCustomers/VirtualCustomers.cs#L273 and notice that it uses `DaprClient` to call an order service.
 
-### (Bonus - If time permits) Exercise 2: Deploy a Dapr Application and Component to Azure Container Apps using the Azure CLI
+### Bonus Exercise (if time permits): Deploy a Dapr Application and Component to Azure Container Apps using the Azure CLI
 
 1. Perform the steps at https://docs.microsoft.com/azure/container-apps/microservices-dapr to:
     - Create a Container Apps environment for your container apps
