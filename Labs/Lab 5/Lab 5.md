@@ -4,19 +4,29 @@ In this lab you'll learn how Dapr and microservices can be used with Azure Conta
 
 ### Pre-Exercise: Deploying the Reddog application to Azure Container Apps
 
-1. Clone the `Reddog` application source code to your machine:
-
-    ```bash
-    git clone https://github.com/Azure/reddog-code
-    ```
-
 1. Clone the `Red Dog Demo: Azure Container Apps Deployment` project:
 
     ```bash
     https://github.com/Azure/reddog-containerapps
     ```
- 
-1. Perform the steps below to deploy the Reddog application and microservices into Azure Container Apps:
+
+1. `cd` into the `reddog-containerapps` folder.
+
+1. Run the following command to list your default subscription (ensure you're using the correct subscription for this class). Notice the subscription `id` value.
+
+    ```bash
+    az account list --query "[?isDefault]"
+    ```
+
+    > Note: You can also get the `subscription id` using the following command:
+
+    ```bash
+    az account list --query "[?isDefault].id" -o tsv
+    ```
+
+1. Copy the subscription `id` value into your clipboard.
+
+1. Perform the steps below to deploy the Reddog application and microservices into Azure Container Apps. Replace `SUB_ID` with the subscription id you copied into your clipboard in the previous step.
 
     ```bash
     # *nix only
@@ -72,9 +82,64 @@ In this lab you'll learn how Dapr and microservices can be used with Azure Conta
     | Makeline Service | Internal | PubSub: Azure Service Bus, State: Azure Redis | Azure Service Bus Subscription Length, HTTP |
     | Virtual Worker | None | Service to Service Invocation, Binding: Cron | N/A |
 
-1. Open the `reddog-code` folder (you cloned this in Exercise 1) in an editor.
+1. Open https://github.com/Azure/reddog-code/blob/master/RedDog.OrderService/Controllers/OrderController.cs#L24 and notice that a `DaprClient` object is injected into the constructor:
 
-### Exercise 2: Deploy a Dapr Application and Component to Azure Container Apps using the Azure CLI
+    ```csharp
+    public OrderController(ILogger<OrderController> logger, DaprClient daprClient)
+    {
+        _logger = logger;
+        _daprClient = daprClient;
+    }
+    ```
+
+1. Locate the `NewOrder()` method and notice that it uses the `DaprClient` object to publish an event:
+
+    ```csharp
+    [HttpPost]
+    public async Task<IActionResult> NewOrder(CustomerOrder order)
+    {
+        _logger.LogInformation("Customer Order received: {@CustomerOrder}", order);
+
+        var orderSummary = await CreateOrderSummaryAsync(order);
+        _logger.LogInformation("Created Order Summary: {@OrderSummary}", orderSummary);
+
+        try
+        {
+            // Dapr used to publish an event
+            await _daprClient.PublishEventAsync<OrderSummary>(PubSubName, OrderTopic, orderSummary);
+            _logger.LogInformation("Published Order Summary: {@OrderSummary}", orderSummary);
+        }
+        catch(Exception e)
+        {
+            _logger.LogError("Error publishing Order Summary: {@OrderSummary}, Message: {Message}", orderSummary, e.InnerException?.Message ?? e.Message);
+            return Problem(e.Message, null, (int)HttpStatusCode.InternalServerError);
+        }
+
+        return Ok();
+    }
+    ```
+
+    > Note: You can find the Dapr Component definition for the pub/sub service (Azure ServiceBus) at https://github.com/Azure/reddog-code/blob/master/manifests/corporate/components/reddog.pubsub.yaml.
+
+1. Open https://github.com/Azure/reddog-code/blob/master/RedDog.LoyaltyService/Controllers/LoyaltyController.cs#L44 and note that a `DaprClient` object is used to get a state entry (from Cosmos DB in this case).
+
+1. After the state entry is retrieved note that it is saved back to the store:
+
+    ```csharp
+    isSuccess = await stateEntry.TrySaveAsync(_stateOptions);
+    ```
+
+    > Note: You can find the Dapr Component definition for the state store at https://github.com/Azure/reddog-code/blob/master/manifests/corporate/components/reddog.state.loyalty.yaml.
+
+1. Open https://github.com/Azure/reddog-code/blob/master/RedDog.ReceiptGenerationService/Controllers/ReceiptGenerationController.cs#L36 and note that the `DaprClient` is used to save data to a blob storage binding:
+
+    ```csharp
+    await daprClient.InvokeBindingAsync<OrderSummary>(ReceiptBindingName, "create", orderSummary, metadata);
+    ```
+
+1. Open https://github.com/Azure/reddog-code/blob/master/RedDog.VirtualCustomers/VirtualCustomers.cs#L273 and notice that it uses `DaprClient` to call an order service.
+
+### (Bonus - If time permits) Exercise 2: Deploy a Dapr Application and Component to Azure Container Apps using the Azure CLI
 
 1. Perform the steps at https://docs.microsoft.com/azure/container-apps/microservices-dapr to:
     - Create a Container Apps environment for your container apps
