@@ -1,4 +1,4 @@
-## Lab 6 - Continuous Integration and Observability with Azure Container Apps
+## Lab 6 - CI/CD and Observability with Azure Container Apps
 
 In this lab you'll learn how to deploy Azure Container Apps using GitHub Actions and how to observe container apps.
 
