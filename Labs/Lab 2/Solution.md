@@ -7,11 +7,11 @@ Here are the commands used in this Lab.
 #### Create a Container App
 
 ```bash
-az containerapp create -n customers-app -g <resource-group> \ 
---environment <containerapp-environment> \
+az containerapp create -n customers-web -g my-container-apps \ 
+--environment my-environment \
 --image nginx:1.17.8-alpine \
 --ingress external --target-port 80 \
---container-name customers-app \
+--container-name customers-web \
 --min-replicas 1 --max-replicas 5 \
 --query properties.configuration.ingress.fqdn
 ```
@@ -19,25 +19,25 @@ az containerapp create -n customers-app -g <resource-group> \
 #### List Revisions
 
 ```bash
-az containerapp revision list -n customers-app -g <resource-group> -o table
+az containerapp revision list -n customers-web -g my-container-apps -o table
 ```
 
 #### Show a Revision
 
 ```bash
-az containerapp revision show --revision customers-app--<suffix-value> -n customers-app -g <resource-group> -o yaml
+az containerapp revision show --revision customers-web--<suffix-value> -n customers-web -g my-container-apps -o yaml
 ```
 
-#### Update a Revision Image
+#### Update a Revision Image (creates a new revision)
 
 ```bash
-az containerapp update -n customers-app -g <resource-group> --image nginx:1.23.1-alpine --revision-suffix a-test
+az containerapp update -n customers-web -g my-container-apps --image nginx:1.23.1-alpine --revision-suffix a-test
 ```
 
 #### Change Revision Mode to Multiple
 
 ```bash
-az containerapp revision set-mode --mode multiple -n customers-app -g <resource-group>
+az containerapp revision set-mode --mode multiple -n customers-web -g my-container-apps
 ```
 
 
