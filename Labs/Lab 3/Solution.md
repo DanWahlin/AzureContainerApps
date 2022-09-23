@@ -4,7 +4,7 @@ Here are the commands used in this Lab.
 
 ### Exercise 1: Provide a virtual network to an external Azure Container Apps environment
  
-Steps can be found at https://docs.microsoft.com/en-us/azure/container-apps/vnet-custom
+Steps can be found at https://learn.microsoft.com/en-us/azure/container-apps/vnet-custom
 
 ### Exercise 2: Modify ingress configuration
 
