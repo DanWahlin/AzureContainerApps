@@ -39,9 +39,9 @@ In this lab you'll learn how to work with ingress configuration.
 
 1. List the current revision name.
 
-1. Add a new revision with a suffix of `2nd-revision` and set the image to `nginx:alpine`.
+1. Add a new revision with a suffix of `revision-2` and set the image to `nginx:alpine`.
 
-1. Change the traffic for the previous revision (the one you looked up the name earlier) to `80` and the `2nd-revision` (ensure that you use the full revision name) to `20`.
+1. Change the traffic for the previous revision (the one you looked up the name earlier) to `80` and the `revision-2` (ensure that you use the full revision name) to `20`.
 
     > Note: As a review, this technique could be used for a canary deployment or for A/B testing.
         
