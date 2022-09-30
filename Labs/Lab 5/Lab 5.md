@@ -4,6 +4,8 @@ In this lab you'll learn how Dapr and microservices can be used with Azure Conta
 
 ### Pre-Exercise: Deploying the Reddog application to Azure Container Apps
 
+1. If you have an existing Container Apps environment in your subscription delete it before performing the following steps.
+
 1. Clone the `Red Dog Demo: Azure Container Apps Deployment` project:
 
     ```bash
